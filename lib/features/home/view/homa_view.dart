@@ -1,48 +1,22 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:ta_ews_application/core.dart';
+import 'package:ta_ews_application/features/home/view/card_widget.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+class Homepage extends StatelessWidget {
+  Homepage({super.key});
 
-  @override
-  State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
-  @override
-  void initState() {
-    super.initState();
-    // DatabaseReference ref = FirebaseDatabase.instance.ref();
-    // ref.child('river_location').onValue.listen((event) {
-    //   final data = event.snapshot.value;
-    //   if (kDebugMode) {
-    //     print(data);
-    //   }
-    // });
-  }
-
-  void readData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-    final snapshot = await ref.child('jarak').get();
-    if (snapshot.exists) {
-      if (kDebugMode) {
-        print(snapshot.value);
-      }
-    } else {
-      if (kDebugMode) {
-        print('No data available.');
-      }
-    }
-  }
+  final List<CardWidget> listData = [CardWidget(), CardWidget(), CardWidget()];
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-        onPressed: readData,
-        child: const Text('tekan'),
-      ),
+      // child: ListView(children: [CardWidget(), CardWidget(), CardWidget()]),
+      child: ListView.builder(
+          itemCount: listData.length,
+          itemBuilder: ((context, index) {
+            return listData[index];
+          })),
     );
   }
 }

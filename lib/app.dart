@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:ta_ews_application/features/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/features/detail/view/detail_view.dart';
@@ -11,7 +13,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
     Homepage(),
     DetailPage(),
     CallCenterPage(),
@@ -23,6 +25,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF545454),
       appBar: AppBar(
         // backgroundColor: Colors.amber[800],
         title: const Text('Peringatan Dini Banjir Bandang'),
