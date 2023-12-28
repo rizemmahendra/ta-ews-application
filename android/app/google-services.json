@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "363069279026",
+    "firebase_url": "https://ta-ews-rizem-mahendra-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ta-ews-rizem-mahendra",
+    "storage_bucket": "ta-ews-rizem-mahendra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363069279026:android:4a078e4f386a048186a52b",
+        "android_client_info": {
+          "package_name": "com.example.tes_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGx0cS3Qrwt8OTutNXIdHcnLTYhqNS3ko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363069279026:android:149aa28ddfe6a0fb86a52b",
+        "android_client_info": {
+          "package_name": "com.rizemmahendra.ta_ews_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGx0cS3Qrwt8OTutNXIdHcnLTYhqNS3ko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

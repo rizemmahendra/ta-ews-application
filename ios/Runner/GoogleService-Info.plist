@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCuKPakGdDsz9W0zcGk7qux5t7jJuiY9Ik</string>
+	<key>GCM_SENDER_ID</key>
+	<string>363069279026</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.taEwsApplication</string>
+	<key>PROJECT_ID</key>
+	<string>ta-ews-rizem-mahendra</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ta-ews-rizem-mahendra.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:363069279026:ios:c048ea73b859e8af86a52b</string>
+	<key>DATABASE_URL</key>
+	<string>https://ta-ews-rizem-mahendra-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
