@@ -21,3 +21,23 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/nunito/Nunito-Regular.ttf
+        - asset: assets/fonts/nunito/Nunito-Italic.ttf
+          style: italic
+        - asset: assets/fonts/nunito/Nunito-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/nunito/Nunito-Bold.ttf
+          weight: 800
+    - family: Berlin Sans FB
+      fonts:
+        - asset: assets/fonts/berlin-sans-fb/BerlinSansFB-Reguler.TTF
+        - asset: assets/fonts/berlin-sans-fb/BerlinSansFB-Bold.TTF
+          weight: 800
+
