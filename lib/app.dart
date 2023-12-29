@@ -27,6 +27,7 @@ class _AppState extends State<App> {
     return Scaffold(
       backgroundColor: const Color(0xFF545454),
       appBar: AppBar(
+        elevation: 0,
         // backgroundColor: Colors.amber[800],
         title: const Text('Peringatan Dini Banjir Bandang'),
         centerTitle: true,
@@ -34,6 +35,68 @@ class _AppState extends State<App> {
           icon: const Icon(Icons.menu),
           onPressed: () {},
         ),
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(100),
+            child: Container(
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: const <Color>[
+                  Color(0xFFEF8234),
+                  Color(0xFF545454),
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: const [
+                    Positioned(
+                      top: 1,
+                      child: Text(
+                        'Nama Sungai',
+                        style: TextStyle(
+                            fontFamily: 'Nunito',
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800),
+                      ),
+                    ),
+                    Positioned(
+                        left: 30,
+                        child: Row(
+                          children: [
+                            Image(
+                                image:
+                                    AssetImage('assets/images/trail-map.png')),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text('Lokasi Sungai',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ))
+                          ],
+                        )),
+                    Positioned(
+                        right: 30,
+                        child: Row(
+                          children: [
+                            Image(
+                                image: AssetImage(
+                                    'assets/images/location-icon.png')),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text('Koordinat Sungai',
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ))
+                          ],
+                        ))
+                  ],
+                ))),
       ),
       bottomNavigationBar: NavigationBar(
           // backgroundColor: Colors.amber[800],
