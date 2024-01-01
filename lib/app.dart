@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/features/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/features/detail/view/detail_view.dart';
 import 'package:ta_ews_application/features/home/view/homa_view.dart';
@@ -25,11 +26,11 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF545454),
+      backgroundColor: Constant.grey,
       appBar: AppBar(
         elevation: 0,
         // backgroundColor: Colors.amber[800],
-        title: const Text('Peringatan Dini Banjir Bandang'),
+        title: Constant.appTitle,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.menu),
@@ -42,8 +43,8 @@ class _AppState extends State<App> {
                 height: 100,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: const <Color>[
-                  Color(0xFFEF8234),
-                  Color(0xFF545454),
+                  Constant.orange,
+                  Constant.grey,
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                 child: Stack(
                   alignment: Alignment.center,
