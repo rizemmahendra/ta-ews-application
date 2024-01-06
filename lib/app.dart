@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/features/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/features/detail/view/detail_view.dart';
-import 'package:ta_ews_application/features/home/view/homa_view.dart';
+import 'package:ta_ews_application/features/home/view/home_view.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
