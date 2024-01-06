@@ -36,7 +36,7 @@ class CardWidget extends StatelessWidget {
       margin: EdgeInsets.all(10),
       child: SizedBox(
         width: double.infinity,
-        height: 150,
+        height: 154,
         child: Stack(
           children: [
             Container(
