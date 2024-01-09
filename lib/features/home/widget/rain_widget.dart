@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
 
-class CardWidget extends StatelessWidget {
-  CardWidget({
+class RainCardWidget extends StatelessWidget {
+  RainCardWidget({
     super.key,
   });
 
@@ -25,9 +25,9 @@ class CardWidget extends StatelessWidget {
       color: Colors.white, fontSize: 48, fontFamily: 'Berlin Sans FB');
 
   final TextStyle dataUnitStyle =
-      TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600);
+      TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600);
 
-  final String title = "Ketinggian Air";
+  final String title = "Intensitas Hujan";
 
   @override
   Widget build(BuildContext context) {
@@ -63,18 +63,27 @@ class CardWidget extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: BlocBuilder<DataSungaiBloc, DataSungaiState>(
+                      buildWhen: (previous, current) {
+                        if (current is DataSungaiInitial) return true;
+                        if (current is LoadedDataSensor) return true;
+                        return false;
+                      },
                       builder: (context, state) {
                         return Row(
                           children: [
                             Expanded(
-                                child: Image.asset('assets/images/water.png')),
+                                child: SizedBox(
+                              height: 100,
+                              child:
+                                  Image.asset('assets/images/Rain cloud.png'),
+                            )),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 1',
                                     data: state is LoadedDataSensor
                                         ? state.dataSensor.valueHujanNode1
                                         : 0,
-                                    satuan: 'CM',
+                                    satuan: 'mm/hour',
                                     status: state is LoadedDataSensor
                                         ? state.dataSensor.statusHujanNode1
                                         : 'null')),
@@ -84,7 +93,7 @@ class CardWidget extends StatelessWidget {
                                     data: state is LoadedDataSensor
                                         ? state.dataSensor.valueHujanNode2
                                         : 0,
-                                    satuan: 'CM',
+                                    satuan: 'mm/hour',
                                     status: state is LoadedDataSensor
                                         ? state.dataSensor.statusHujanNode2
                                         : 'null')),
@@ -141,95 +150,4 @@ class CardWidget extends StatelessWidget {
       ),
     ]);
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Card(
-  //     color: Colors.amber,
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(8.0),
-  //       child: Column(children: [
-  //         Text('Ketinggian Air', style: titleStyle),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: setColor(Colors.red),
-  //                 child: Image.asset('assets/images/water.png'),
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: setColor(Colors.blue),
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Text(
-  //                       'Node 1',
-  //                       textAlign: TextAlign.center,
-  //                       style: subTitleStyle,
-  //                     ),
-  //                     RichText(
-  //                         text: TextSpan(
-  //                             text: '10',
-  //                             style: dataStyle,
-  //                             children: <TextSpan>[
-  //                           TextSpan(text: 'CM', style: dataUnitStyle)
-  //                         ])),
-  //                     Container(
-  //                       decoration: BoxDecoration(color: Colors.red),
-  //                       child: Text(
-  //                         'status',
-  //                         style: TextStyle(
-  //                             color: Colors.black.withOpacity(0.6),
-  //                             fontFamily: 'Nunito',
-  //                             fontSize: 10,
-  //                             fontWeight: FontWeight.w600),
-  //                       ),
-  //                     ),
-  //                     Text(
-  //                       'Tinggi',
-  //                       style: TextStyle(
-  //                           fontFamily: 'Nunito',
-  //                           fontSize: 16,
-  //                           fontWeight: FontWeight.w600),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: BoxDecoration(color: Colors.green),
-  //                 child: Column(
-  //                   children: [
-  //                     Text(
-  //                       'Node 2',
-  //                       style: subTitleStyle,
-  //                     ),
-  //                     RichText(
-  //                         text: TextSpan(
-  //                             text: '6',
-  //                             style: dataStyle,
-  //                             children: <TextSpan>[
-  //                           TextSpan(text: 'CM', style: dataUnitStyle)
-  //                         ])),
-  //                     Text('status'),
-  //                     Text('Sedang')
-  //                   ],
-  //                 ),
-  //               ),
-  //             )
-  //           ],
-  //         )
-  //       ]),
-  //     ),
-  //   );
-  // }
 }

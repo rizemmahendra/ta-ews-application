@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
 
-class CardWidget extends StatelessWidget {
-  CardWidget({
+class WaterCardWidget extends StatelessWidget {
+  WaterCardWidget({
     super.key,
   });
 
@@ -63,6 +63,11 @@ class CardWidget extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: BlocBuilder<DataSungaiBloc, DataSungaiState>(
+                      buildWhen: (previous, current) {
+                        if (current is DataSungaiInitial) return true;
+                        if (current is LoadedDataSensor) return true;
+                        return false;
+                      },
                       builder: (context, state) {
                         return Row(
                           children: [
@@ -72,21 +77,21 @@ class CardWidget extends StatelessWidget {
                                 child: dispalyData(
                                     title: 'Node 1',
                                     data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueHujanNode1
+                                        ? state.dataSensor.valueTinggiNode1
                                         : 0,
                                     satuan: 'CM',
                                     status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusHujanNode1
+                                        ? state.dataSensor.statusTinggiNode1
                                         : 'null')),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 2',
                                     data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueHujanNode2
+                                        ? state.dataSensor.valueTinggiNode2
                                         : 0,
                                     satuan: 'CM',
                                     status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusHujanNode2
+                                        ? state.dataSensor.statusTinggiNode2
                                         : 'null')),
                           ],
                         );

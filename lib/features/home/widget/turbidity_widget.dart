@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
 
-class CardWidget extends StatelessWidget {
-  CardWidget({
+class TurbidityCardWidget extends StatelessWidget {
+  TurbidityCardWidget({
     super.key,
   });
 
@@ -25,9 +25,9 @@ class CardWidget extends StatelessWidget {
       color: Colors.white, fontSize: 48, fontFamily: 'Berlin Sans FB');
 
   final TextStyle dataUnitStyle =
-      TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600);
+      TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600);
 
-  final String title = "Ketinggian Air";
+  final String title = "Kekeruhan Air";
 
   @override
   Widget build(BuildContext context) {
@@ -63,30 +63,41 @@ class CardWidget extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: BlocBuilder<DataSungaiBloc, DataSungaiState>(
+                      buildWhen: (previous, current) {
+                        if (current is DataSungaiInitial) return true;
+                        if (current is LoadedDataSensor) return true;
+                        return false;
+                      },
                       builder: (context, state) {
                         return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                                child: Image.asset('assets/images/water.png')),
+                                child: SizedBox(
+                                    height: 100,
+                                    child: Image.asset(
+                                      'assets/images/Vector.png',
+                                      alignment: AlignmentDirectional.center,
+                                    ))),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 1',
                                     data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueHujanNode1
+                                        ? state.dataSensor.valueKekeruhanNode1
                                         : 0,
-                                    satuan: 'CM',
+                                    satuan: 'NTU',
                                     status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusHujanNode1
+                                        ? state.dataSensor.statusKekeruhanNode1
                                         : 'null')),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 2',
                                     data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueHujanNode2
+                                        ? state.dataSensor.valueKekeruhanNode2
                                         : 0,
-                                    satuan: 'CM',
+                                    satuan: 'NTU',
                                     status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusHujanNode2
+                                        ? state.dataSensor.statusKekeruhanNode2
                                         : 'null')),
                           ],
                         );
