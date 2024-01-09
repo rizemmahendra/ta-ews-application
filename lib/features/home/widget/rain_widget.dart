@@ -1,31 +1,29 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
 
 class RainCardWidget extends StatelessWidget {
-  RainCardWidget({
+  const RainCardWidget({
     super.key,
   });
 
-  final TextStyle titleStyle = TextStyle(
+  final TextStyle titleStyle = const TextStyle(
       color: Colors.white,
       fontSize: 24,
       fontFamily: 'Nunito',
       fontWeight: FontWeight.w800);
 
-  final TextStyle subTitleStyle = TextStyle(
+  final TextStyle subTitleStyle = const TextStyle(
       color: Colors.white,
       fontFamily: 'Nunito',
       fontSize: 12,
       fontWeight: FontWeight.w600);
 
-  final TextStyle dataStyle = TextStyle(
+  final TextStyle dataStyle = const TextStyle(
       color: Colors.white, fontSize: 48, fontFamily: 'Berlin Sans FB');
 
-  final TextStyle dataUnitStyle =
-      TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600);
+  final TextStyle dataUnitStyle = const TextStyle(
+      color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600);
 
   final String title = "Intensitas Hujan";
 
@@ -35,14 +33,14 @@ class RainCardWidget extends StatelessWidget {
       color: Colors.white.withOpacity(0.3),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: SizedBox(
         width: double.infinity,
         height: 154,
         child: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/images/bg1.png'),
                       fit: BoxFit.contain,
@@ -142,7 +140,7 @@ class RainCardWidget extends StatelessWidget {
       ),
       Text(
         status,
-        style: TextStyle(
+        style: const TextStyle(
             color: Colors.white,
             fontFamily: 'Nunito',
             fontSize: 16,

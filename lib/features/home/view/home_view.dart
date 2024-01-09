@@ -1,17 +1,13 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:ta_ews_application/features/home/widget/rain_widget.dart';
-import 'package:ta_ews_application/features/home/widget/turbidity_widget.dart';
-import 'package:ta_ews_application/features/home/widget/water_widget.dart';
+import 'package:ta_ews_application/features/home/widget/home_widget.dart';
 
 class Homepage extends StatelessWidget {
   Homepage({super.key});
 
   final List<Widget> listData = [
-    WaterCardWidget(),
-    TurbidityCardWidget(),
-    RainCardWidget()
+    const WaterCardWidget(),
+    const TurbidityCardWidget(),
+    const RainCardWidget()
   ];
 
   @override
