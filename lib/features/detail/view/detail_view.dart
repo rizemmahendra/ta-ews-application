@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
+import 'package:ta_ews_application/features/detail/widget/line_chart.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -10,6 +13,40 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center();
+    return Center(
+      child: ListView(children: [
+        GrafikContainer(),
+        // GrafikContainer(),
+        // GrafikContainer(),
+      ]),
+    );
+  }
+}
+
+class GrafikContainer extends StatelessWidget {
+  const GrafikContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 15),
+      width: double.infinity,
+      height: 180,
+      decoration: BoxDecoration(color: Colors.black.withOpacity(0.25)),
+      child: Column(children: [
+        Text(
+          'Grafik Ketinggian Air',
+          style: TextStyle(color: Colors.white),
+        ),
+        Container(
+          height: 150,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.transparent),
+          child: LineChartWidget(),
+        )
+      ]),
+    );
   }
 }

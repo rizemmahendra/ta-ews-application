@@ -36,7 +36,7 @@ class TurbidityCardWidget extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       child: SizedBox(
         width: double.infinity,
-        height: 154,
+        height: 160,
         child: Stack(
           children: [
             Container(

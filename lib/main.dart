@@ -20,8 +20,9 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<DataSungaiBloc>()
-        ..add(const GetDataSungaiEvent())
-        ..add(const SubscribeDataSensor()),
+      // ..add(const GetDataSungaiEvent())
+      // ..add(const SubscribeDataSensor())
+      ,
       child: MaterialApp(
         theme: ThemeData(
             appBarTheme: AppBarTheme(
