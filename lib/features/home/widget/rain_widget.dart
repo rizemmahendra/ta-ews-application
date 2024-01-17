@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
 
 class RainCardWidget extends StatelessWidget {
   const RainCardWidget({
@@ -60,10 +60,12 @@ class RainCardWidget extends StatelessWidget {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: BlocBuilder<DataSungaiBloc, DataSungaiState>(
+                    child: BlocBuilder<SungaiBloc, SungaiState>(
                       buildWhen: (previous, current) {
-                        if (current is DataSungaiInitial) return true;
-                        if (current is LoadedDataSensor) return true;
+                        if (current is SungaiInitial) return true;
+                        if (current is LoadedDataRealtimeSensor) {
+                          return true;
+                        }
                         return false;
                       },
                       builder: (context, state) {
@@ -72,28 +74,31 @@ class RainCardWidget extends StatelessWidget {
                             Expanded(
                                 child: SizedBox(
                               height: 100,
-                              child:
-                                  Image.asset('assets/images/Rain cloud.png'),
+                              child: Image.asset('assets/images/water.png'),
                             )),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 1',
-                                    data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueHujanNode1
+                                    data: state is LoadedDataRealtimeSensor
+                                        ? state
+                                            .dataSensor.node1['rainIntensity']
                                         : 0,
                                     satuan: 'mm/hour',
-                                    status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusHujanNode1
+                                    status: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor
+                                            .node1['rainIntensityStatus']
                                         : 'null')),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 2',
-                                    data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueHujanNode2
+                                    data: state is LoadedDataRealtimeSensor
+                                        ? state
+                                            .dataSensor.node2['rainIntensity']
                                         : 0,
                                     satuan: 'mm/hour',
-                                    status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusHujanNode2
+                                    status: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor
+                                            .node2['rainIntensityStatus']
                                         : 'null')),
                           ],
                         );

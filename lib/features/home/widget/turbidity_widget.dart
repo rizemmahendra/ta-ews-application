@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
 
 class TurbidityCardWidget extends StatelessWidget {
   const TurbidityCardWidget({
@@ -60,10 +60,10 @@ class TurbidityCardWidget extends StatelessWidget {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: BlocBuilder<DataSungaiBloc, DataSungaiState>(
+                    child: BlocBuilder<SungaiBloc, SungaiState>(
                       buildWhen: (previous, current) {
-                        if (current is DataSungaiInitial) return true;
-                        if (current is LoadedDataSensor) return true;
+                        if (current is SungaiInitial) return true;
+                        if (current is LoadedDataRealtimeSensor) return true;
                         return false;
                       },
                       builder: (context, state) {
@@ -80,22 +80,26 @@ class TurbidityCardWidget extends StatelessWidget {
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 1',
-                                    data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueKekeruhanNode1
+                                    data: state is LoadedDataRealtimeSensor
+                                        ? state
+                                            .dataSensor.node1['waterTurbidity']
                                         : 0,
                                     satuan: 'NTU',
-                                    status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusKekeruhanNode1
+                                    status: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor
+                                            .node1['waterTurbidityStatus']
                                         : 'null')),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 2',
-                                    data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueKekeruhanNode2
+                                    data: state is LoadedDataRealtimeSensor
+                                        ? state
+                                            .dataSensor.node2['waterTurbidity']
                                         : 0,
                                     satuan: 'NTU',
-                                    status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusKekeruhanNode2
+                                    status: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor
+                                            .node2['waterTurbidityStatus']
                                         : 'null')),
                           ],
                         );

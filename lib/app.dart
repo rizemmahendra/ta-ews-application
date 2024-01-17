@@ -1,11 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/features/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/features/detail/view/detail_view.dart';
-import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+// import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
 import 'package:ta_ews_application/features/home/view/home_view.dart';
 
 class App extends StatefulWidget {
@@ -23,11 +24,15 @@ class _AppState extends State<App> {
     CallCenterPage()
   ];
 
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     // DataSungaiBloc sungaiBloc = context.read<DataSungaiBloc>();
+    String statusNode1 = '';
+    String statusNode2 = '';
+    String currentStatusNode1 = '';
+    String currentStatusNode2 = '';
 
     return Scaffold(
       backgroundColor: Constant.grey,
@@ -54,35 +59,40 @@ class _AppState extends State<App> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 )),
-                child: BlocConsumer<DataSungaiBloc, DataSungaiState>(
+                child: BlocConsumer<SungaiBloc, SungaiState>(
                   listenWhen: (previous, current) {
-                    if (current is LoadedDataSensor) return true;
+                    if (current is LoadedDataRealtimeSensor) return true;
                     return false;
                   },
                   listener: (context, state) {
-                    state as LoadedDataSensor;
-                    if (state.dataSensor.levelBahayaNode1 == "bahaya" ||
-                        state.dataSensor.levelBahayaNode1 == "sangat bahaya") {
+                    state as LoadedDataRealtimeSensor;
+                    statusNode1 = state.dataSensor.node1['levelDanger'];
+                    statusNode2 = state.dataSensor.node2['levelDanger'];
+                    if (statusNode1 == "bahaya" ||
+                        statusNode1 == "sangat bahaya" &&
+                            currentStatusNode1 != statusNode1) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              'Kondisi Sungai : ${state.dataSensor.levelBahayaNode1} di Node 1'),
+                          content:
+                              Text('Kondisi Sungai : $statusNode1 di Node 1'),
                           backgroundColor: Constant.orange));
                     }
-                    if (state.dataSensor.levelBahayaNode2 == "bahaya" ||
-                        state.dataSensor.levelBahayaNode2 == "sangat bahaya") {
+                    if (statusNode2 == "bahaya" ||
+                        statusNode2 == "sangat bahaya" &&
+                            currentStatusNode2 != statusNode2) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              'Kondisi Sungai : ${state.dataSensor.levelBahayaNode2} di Node 2'),
+                          content:
+                              Text('Kondisi Sungai : $statusNode2 di Node 2'),
                           backgroundColor: Constant.orange));
                     }
+                    currentStatusNode1 = statusNode1;
+                    currentStatusNode2 = statusNode2;
                   },
                   buildWhen: (previous, current) {
-                    if (current is DataSungaiInitial) return true;
+                    if (current is SungaiInitial) return true;
                     if (current is LoadedDataSungai) return true;
                     return false;
                   },
                   builder: (context, state) {
-                    if (state is LoadedDataSungai) {}
                     return Stack(
                       alignment: Alignment.center,
                       children: [
@@ -132,7 +142,7 @@ class _AppState extends State<App> {
                                 ),
                                 Text(
                                     state is LoadedDataSungai
-                                        ? state.dataSungai.koordinatSungai
+                                        ? '${state.dataSungai.koordinatSungai?.latitude} S, ${state.dataSungai.koordinatSungai?.longitude} U'
                                         : 'Koordinat Sungai',
                                     style: TextStyle(
                                       fontFamily: 'Nunito',

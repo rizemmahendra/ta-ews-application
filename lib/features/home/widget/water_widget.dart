@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
 
 class WaterCardWidget extends StatelessWidget {
   const WaterCardWidget({
@@ -60,10 +60,10 @@ class WaterCardWidget extends StatelessWidget {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: BlocBuilder<DataSungaiBloc, DataSungaiState>(
+                    child: BlocBuilder<SungaiBloc, SungaiState>(
                       buildWhen: (previous, current) {
-                        if (current is DataSungaiInitial) return true;
-                        if (current is LoadedDataSensor) return true;
+                        if (current is SungaiInitial) return true;
+                        if (current is LoadedDataRealtimeSensor) return true;
                         return false;
                       },
                       builder: (context, state) {
@@ -74,22 +74,24 @@ class WaterCardWidget extends StatelessWidget {
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 1',
-                                    data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueTinggiNode1
+                                    data: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor.node1['waterLevel']
                                         : 0,
                                     satuan: 'CM',
-                                    status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusTinggiNode1
+                                    status: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor
+                                            .node1['waterLevelStatus']
                                         : 'null')),
                             Expanded(
                                 child: dispalyData(
                                     title: 'Node 2',
-                                    data: state is LoadedDataSensor
-                                        ? state.dataSensor.valueTinggiNode2
+                                    data: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor.node2['waterLevel']
                                         : 0,
                                     satuan: 'CM',
-                                    status: state is LoadedDataSensor
-                                        ? state.dataSensor.statusTinggiNode2
+                                    status: state is LoadedDataRealtimeSensor
+                                        ? state.dataSensor
+                                            .node2['waterLevelStatus']
                                         : 'null')),
                           ],
                         );
@@ -144,95 +146,96 @@ class WaterCardWidget extends StatelessWidget {
       ),
     ]);
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Card(
-  //     color: Colors.amber,
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(8.0),
-  //       child: Column(children: [
-  //         Text('Ketinggian Air', style: titleStyle),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: setColor(Colors.red),
-  //                 child: Image.asset('assets/images/water.png'),
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: setColor(Colors.blue),
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Text(
-  //                       'Node 1',
-  //                       textAlign: TextAlign.center,
-  //                       style: subTitleStyle,
-  //                     ),
-  //                     RichText(
-  //                         text: TextSpan(
-  //                             text: '10',
-  //                             style: dataStyle,
-  //                             children: <TextSpan>[
-  //                           TextSpan(text: 'CM', style: dataUnitStyle)
-  //                         ])),
-  //                     Container(
-  //                       decoration: BoxDecoration(color: Colors.red),
-  //                       child: Text(
-  //                         'status',
-  //                         style: TextStyle(
-  //                             color: Colors.black.withOpacity(0.6),
-  //                             fontFamily: 'Nunito',
-  //                             fontSize: 10,
-  //                             fontWeight: FontWeight.w600),
-  //                       ),
-  //                     ),
-  //                     Text(
-  //                       'Tinggi',
-  //                       style: TextStyle(
-  //                           fontFamily: 'Nunito',
-  //                           fontSize: 16,
-  //                           fontWeight: FontWeight.w600),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: BoxDecoration(color: Colors.green),
-  //                 child: Column(
-  //                   children: [
-  //                     Text(
-  //                       'Node 2',
-  //                       style: subTitleStyle,
-  //                     ),
-  //                     RichText(
-  //                         text: TextSpan(
-  //                             text: '6',
-  //                             style: dataStyle,
-  //                             children: <TextSpan>[
-  //                           TextSpan(text: 'CM', style: dataUnitStyle)
-  //                         ])),
-  //                     Text('status'),
-  //                     Text('Sedang')
-  //                   ],
-  //                 ),
-  //               ),
-  //             )
-  //           ],
-  //         )
-  //       ]),
-  //     ),
-  //   );
-  // }
 }
+
+//   // @override
+//   // Widget build(BuildContext context) {
+//   //   return Card(
+//   //     color: Colors.amber,
+//   //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+//   //     child: Padding(
+//   //       padding: const EdgeInsets.all(8.0),
+//   //       child: Column(children: [
+//   //         Text('Ketinggian Air', style: titleStyle),
+//   //         Row(
+//   //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//   //           crossAxisAlignment: CrossAxisAlignment.center,
+//   //           children: [
+//   //             Expanded(
+//   //               flex: 1,
+//   //               child: Container(
+//   //                 decoration: setColor(Colors.red),
+//   //                 child: Image.asset('assets/images/water.png'),
+//   //               ),
+//   //             ),
+//   //             Expanded(
+//   //               flex: 1,
+//   //               child: Container(
+//   //                 decoration: setColor(Colors.blue),
+//   //                 child: Column(
+//   //                   crossAxisAlignment: CrossAxisAlignment.start,
+//   //                   children: [
+//   //                     Text(
+//   //                       'Node 1',
+//   //                       textAlign: TextAlign.center,
+//   //                       style: subTitleStyle,
+//   //                     ),
+//   //                     RichText(
+//   //                         text: TextSpan(
+//   //                             text: '10',
+//   //                             style: dataStyle,
+//   //                             children: <TextSpan>[
+//   //                           TextSpan(text: 'CM', style: dataUnitStyle)
+//   //                         ])),
+//   //                     Container(
+//   //                       decoration: BoxDecoration(color: Colors.red),
+//   //                       child: Text(
+//   //                         'status',
+//   //                         style: TextStyle(
+//   //                             color: Colors.black.withOpacity(0.6),
+//   //                             fontFamily: 'Nunito',
+//   //                             fontSize: 10,
+//   //                             fontWeight: FontWeight.w600),
+//   //                       ),
+//   //                     ),
+//   //                     Text(
+//   //                       'Tinggi',
+//   //                       style: TextStyle(
+//   //                           fontFamily: 'Nunito',
+//   //                           fontSize: 16,
+//   //                           fontWeight: FontWeight.w600),
+//   //                     ),
+//   //                   ],
+//   //                 ),
+//   //               ),
+//   //             ),
+//   //             Expanded(
+//   //               flex: 1,
+//   //               child: Container(
+//   //                 decoration: BoxDecoration(color: Colors.green),
+//   //                 child: Column(
+//   //                   children: [
+//   //                     Text(
+//   //                       'Node 2',
+//   //                       style: subTitleStyle,
+//   //                     ),
+//   //                     RichText(
+//   //                         text: TextSpan(
+//   //                             text: '6',
+//   //                             style: dataStyle,
+//   //                             children: <TextSpan>[
+//   //                           TextSpan(text: 'CM', style: dataUnitStyle)
+//   //                         ])),
+//   //                     Text('status'),
+//   //                     Text('Sedang')
+//   //                   ],
+//   //                 ),
+//   //               ),
+//   //             )
+//   //           ],
+//   //         )
+//   //       ]),
+//   //     ),
+//   //   );
+//   // }
+// }

@@ -1,9 +1,12 @@
+// import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/app.dart';
 import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/dependecy_injection.dart';
-import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
+// import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
 import 'package:ta_ews_application/firebase_options.dart';
 
 void main() async {
@@ -19,10 +22,11 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<DataSungaiBloc>()
-      // ..add(const GetDataSungaiEvent())
-      // ..add(const SubscribeDataSensor())
-      ,
+      // create: (context) => sl<DataSungaiBloc>()
+      //   ..add(const GetDataSungaiEvent())
+      //   ..add(const SubscribeDataSensor()),
+      create: (context) => sl<SungaiBloc>()
+        ..add(const GetDataSungai(idSungai: 'axBPVZsdXUAjFyWOlXnt')),
       child: MaterialApp(
         theme: ThemeData(
             appBarTheme: AppBarTheme(
@@ -34,7 +38,24 @@ class Main extends StatelessWidget {
             )),
         home: const App(),
         // home: const MyApp(),
+        // home: const MyWidget(),
       ),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<SungaiBloc, SungaiState>(
+      listener: (context, state) {
+        if (kDebugMode) {
+          print(state);
+        }
+      },
+      child: const Placeholder(),
     );
   }
 }
