@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/core.dart';
-import 'package:ta_ews_application/features/call_center/view/call_center_view.dart';
-import 'package:ta_ews_application/features/detail/view/detail_view.dart';
-// import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
-import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
-import 'package:ta_ews_application/features/home/view/home_view.dart';
+import 'package:ta_ews_application/presentation/call_center/view/call_center_view.dart';
+import 'package:ta_ews_application/presentation/detail/view/detail_view.dart';
+// import 'package:ta_ews_application/presentation/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
+import 'package:ta_ews_application/presentation/home/view/home_view.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -31,8 +31,8 @@ class _AppState extends State<App> {
     // DataSungaiBloc sungaiBloc = context.read<DataSungaiBloc>();
     String statusNode1 = '';
     String statusNode2 = '';
-    String currentStatusNode1 = '';
-    String currentStatusNode2 = '';
+    String prevStatusNode1 = '';
+    String prevStatusNode2 = '';
 
     return Scaffold(
       backgroundColor: Constant.grey,
@@ -68,24 +68,24 @@ class _AppState extends State<App> {
                     state as LoadedDataRealtimeSensor;
                     statusNode1 = state.dataSensor.node1['levelDanger'];
                     statusNode2 = state.dataSensor.node2['levelDanger'];
-                    if (statusNode1 == "bahaya" ||
-                        statusNode1 == "sangat bahaya" &&
-                            currentStatusNode1 != statusNode1) {
+                    if (prevStatusNode1 != statusNode1 &&
+                            statusNode1 == "bahaya" ||
+                        statusNode1 == "sangat bahaya") {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content:
                               Text('Kondisi Sungai : $statusNode1 di Node 1'),
                           backgroundColor: Constant.orange));
                     }
-                    if (statusNode2 == "bahaya" ||
-                        statusNode2 == "sangat bahaya" &&
-                            currentStatusNode2 != statusNode2) {
+                    if (prevStatusNode2 != statusNode2 &&
+                            statusNode2 == "bahaya" ||
+                        statusNode2 == "sangat bahaya") {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content:
                               Text('Kondisi Sungai : $statusNode2 di Node 2'),
                           backgroundColor: Constant.orange));
                     }
-                    currentStatusNode1 = statusNode1;
-                    currentStatusNode2 = statusNode2;
+                    prevStatusNode1 = statusNode1;
+                    prevStatusNode2 = statusNode2;
                   },
                   buildWhen: (previous, current) {
                     if (current is SungaiInitial) return true;

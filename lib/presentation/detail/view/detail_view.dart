@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:ta_ews_application/features/detail/widget/line_chart.dart';
+import 'package:ta_ews_application/presentation/detail/widget/line_chart.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});

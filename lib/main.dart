@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/app.dart';
 import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/dependecy_injection.dart';
-import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
-// import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
+// import 'package:ta_ews_application/presentation/home/bloc/data_sungai_bloc.dart';
 import 'package:ta_ews_application/firebase_options.dart';
 
 void main() async {

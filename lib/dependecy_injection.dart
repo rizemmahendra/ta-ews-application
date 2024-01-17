@@ -9,8 +9,8 @@ import 'package:ta_ews_application/domain/usecase/get_data_history.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_realtime_sensor.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_sungai.dart';
 import 'package:ta_ews_application/domain/usecase/get_list_sungai.dart';
-// import 'package:ta_ews_application/features/home/bloc/data_sungai_bloc.dart';
-import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
+// import 'package:ta_ews_application/presentation/home/bloc/data_sungai_bloc.dart';
+import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 
 GetIt sl = GetIt.instance;
 

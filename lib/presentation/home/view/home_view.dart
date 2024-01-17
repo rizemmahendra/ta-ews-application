@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ta_ews_application/features/home/widget/home_widget.dart';
+import 'package:ta_ews_application/presentation/home/widget/home_widget.dart';
 
 class Homepage extends StatelessWidget {
   Homepage({super.key});

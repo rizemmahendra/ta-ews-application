@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ta_ews_application/features/home/bloc/sungai_bloc.dart';
+import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 
 class WaterCardWidget extends StatelessWidget {
   const WaterCardWidget({
