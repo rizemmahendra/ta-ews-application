@@ -1,9 +1,13 @@
 // import 'package:dartz/dartz.dart';
+// ignore_for_file: unused_import
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/app.dart';
 import 'package:ta_ews_application/core.dart';
+import 'package:ta_ews_application/data/datasources/firestore.dart';
 import 'package:ta_ews_application/dependecy_injection.dart';
 import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 // import 'package:ta_ews_application/presentation/home/bloc/data_sungai_bloc.dart';
@@ -26,7 +30,9 @@ class Main extends StatelessWidget {
       //   ..add(const GetDataSungaiEvent())
       //   ..add(const SubscribeDataSensor()),
       create: (context) => sl<SungaiBloc>()
-        ..add(const GetDataSungai(idSungai: 'axBPVZsdXUAjFyWOlXnt')),
+        ..add(const GetDataHistorySensor('axBPVZsdXUAjFyWOlXnt', '2024-01-17'))
+      // ..add(const GetDataSungai(idSungai: 'axBPVZsdXUAjFyWOlXnt'))
+      ,
       child: MaterialApp(
         theme: ThemeData(
             appBarTheme: AppBarTheme(
@@ -44,21 +50,15 @@ class Main extends StatelessWidget {
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+// class MyWidget extends StatelessWidget {
+//   const MyWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<SungaiBloc, SungaiState>(
-      listener: (context, state) {
-        if (kDebugMode) {
-          print(state);
-        }
-      },
-      child: const Placeholder(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     FirestoreDataSource(instance: FirebaseFirestore.instance).addHistory();
+//     return const Placeholder();
+//   }
+// }
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});

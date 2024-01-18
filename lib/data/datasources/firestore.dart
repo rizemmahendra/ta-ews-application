@@ -76,6 +76,40 @@ class FirestoreDataSource implements RemoteDataSource {
     return history;
   }
 
+  // Future<void> addHistory() async {
+  //   Map<String, dynamic> data = {
+  //     'node1': {
+  //       'levelDanger': 'aman',
+  //       'rainIntensity': 10,
+  //       'rainIntensityStatus': 'tidak hujan',
+  //       'waterLevel': 0,
+  //       'waterLevelStatus': 'rendah',
+  //       'waterTurbidity': 0,
+  //       'waterTurbidityStatus': 'tidak keruh',
+  //     },
+  //     'node2': {
+  //       'levelDanger': 'aman',
+  //       'rainIntensity': 10,
+  //       'rainIntensityStatus': 'tidak hujan',
+  //       'waterLevel': 0,
+  //       'waterLevelStatus': 'rendah',
+  //       'waterTurbidity': 0,
+  //       'waterTurbidityStatus': 'tidak keruh',
+  //     },
+  //   };
+  //   final docRef = ref
+  //       .doc('axBPVZsdXUAjFyWOlXnt')
+  //       .collection('data_sensor')
+  //       .doc('history')
+  //       .collection('2024-01-17')
+  //       .doc('04:00');
+  //   // ignore: avoid_print
+  //   await docRef
+  //       .set(data)
+  //       .onError((error, stackTrace) => print(error))
+  //       .whenComplete(() => print("selesai"));
+  // }
+
   @override
   List<Object?> get props => [];
 

@@ -31,8 +31,11 @@ class DataSensorNewModel extends DataSensorNew {
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final data = snapshot.data();
+    String? date = (snapshot.id != 'history' && snapshot.id != 'realtime')
+        ? snapshot.id
+        : null;
     return DataSensorNewModel(
-        node1: data?['node1'], node2: data?['node2'], date: data?['date']);
+        node1: data?['node1'], node2: data?['node2'], date: date);
   }
 
   Map<String, dynamic> toFirestore() {

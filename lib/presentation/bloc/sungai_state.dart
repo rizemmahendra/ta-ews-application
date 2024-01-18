@@ -57,5 +57,5 @@ class GettingDataHistorySensor extends SungaiState {
 class LoadedDataHistorySensor extends SungaiState {
   const LoadedDataHistorySensor({required this.dataHistory});
 
-  final List<DataSensorNew> dataHistory;
+  final DataHistorySensor dataHistory;
 }
