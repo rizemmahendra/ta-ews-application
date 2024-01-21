@@ -62,8 +62,8 @@ class RainCardWidget extends StatelessWidget {
                     width: double.infinity,
                     child: BlocBuilder<SungaiBloc, SungaiState>(
                       buildWhen: (previous, current) {
-                        if (current is SungaiInitial) return true;
-                        if (current is LoadedDataRealtimeSensor) {
+                        if (current is SungaiInitial ||
+                            current is LoadedDataRealtimeSensor) {
                           return true;
                         }
                         return false;

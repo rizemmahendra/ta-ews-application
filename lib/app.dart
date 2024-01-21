@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/presentation/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/presentation/detail/view/detail_view.dart';
-// import 'package:ta_ews_application/presentation/home/bloc/data_sungai_bloc.dart';
 import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 import 'package:ta_ews_application/presentation/home/view/home_view.dart';
 
@@ -19,16 +16,15 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final List<Widget> pages = [
     Homepage(),
-    DetailPage(),
-    CallCenterPage(),
-    CallCenterPage()
+    const DetailPage(),
+    const CallCenterPage(),
+    const CallCenterPage()
   ];
 
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    // DataSungaiBloc sungaiBloc = context.read<DataSungaiBloc>();
     String statusNode1 = '';
     String statusNode2 = '';
     String prevStatusNode1 = '';
@@ -38,21 +34,23 @@ class _AppState extends State<App> {
       backgroundColor: Constant.grey,
       appBar: AppBar(
         elevation: 0,
-        // backgroundColor: Colors.amber[800],
         title: Constant.appTitle,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.menu),
-          onPressed: () {},
+          onPressed: () {
+            context.read<SungaiBloc>().add(const GetDataHistorySensor(
+                'axBPVZsdXUAjFyWOlXnt', '2024-01-17'));
+          },
         ),
         bottom: PreferredSize(
-            preferredSize: Size.fromHeight(100),
+            preferredSize: const Size.fromHeight(100),
             child: Container(
                 width: double.infinity,
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                  colors: const <Color>[
+                  colors: <Color>[
                     Constant.orange,
                     Constant.grey,
                   ],
@@ -102,7 +100,7 @@ class _AppState extends State<App> {
                             state is LoadedDataSungai
                                 ? state.dataSungai.namaSungai
                                 : 'Nama Sungai',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Nunito',
                                 color: Colors.white,
                                 fontSize: 20,
@@ -113,17 +111,17 @@ class _AppState extends State<App> {
                             left: 30,
                             child: Row(
                               children: [
-                                Image(
+                                const Image(
                                     image: AssetImage(
                                         'assets/images/trail-map.png')),
-                                SizedBox(
+                                const SizedBox(
                                   width: 4,
                                 ),
                                 Text(
                                     state is LoadedDataSungai
                                         ? state.dataSungai.lokasiSungai
                                         : 'Lokasi Sungai',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Nunito',
                                       color: Colors.white,
                                       fontSize: 14,
@@ -134,17 +132,17 @@ class _AppState extends State<App> {
                             right: 30,
                             child: Row(
                               children: [
-                                Image(
+                                const Image(
                                     image: AssetImage(
                                         'assets/images/location-icon.png')),
-                                SizedBox(
+                                const SizedBox(
                                   width: 4,
                                 ),
                                 Text(
                                     state is LoadedDataSungai
                                         ? '${state.dataSungai.koordinatSungai?.latitude} S, ${state.dataSungai.koordinatSungai?.longitude} U'
                                         : 'Koordinat Sungai',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontFamily: 'Nunito',
                                       color: Colors.white,
                                       fontSize: 14,
@@ -157,7 +155,6 @@ class _AppState extends State<App> {
                 ))),
       ),
       bottomNavigationBar: NavigationBar(
-          // backgroundColor: Colors.amber[800],
           indicatorColor: Colors.white,
           selectedIndex: _currentIndex,
           onDestinationSelected: (value) {
@@ -183,7 +180,7 @@ class _AppState extends State<App> {
                 selectedIcon: Icon(Icons.info),
                 label: 'About'),
           ]),
-      body: pages.elementAt(_currentIndex),
+      body: IndexedStack(index: _currentIndex, children: pages),
     );
   }
 }

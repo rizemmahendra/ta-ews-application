@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ta_ews_application/domain/entity/data_history_sensor.dart';
-import 'package:ta_ews_application/domain/entity/data_sensor_new.dart';
+import 'package:ta_ews_application/domain/entity/data_sensor.dart';
 import 'package:ta_ews_application/domain/entity/sungai.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_history.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_realtime_sensor.dart';
@@ -40,7 +40,7 @@ class SungaiBloc extends Bloc<SungaiBlocEvent, SungaiState> {
   final GetDataSungaiUseCase _dataSungaiUseCase;
   final GetDataRealtimeSensorUseCase _dataRealtimeSensorUseCase;
   final GetDataHistoryUseCase _dataHistoryUseCase;
-  StreamSubscription<DocumentSnapshot<DataSensorNew>>? _streamSubscription;
+  StreamSubscription<DocumentSnapshot<DataSensor>>? _streamSubscription;
 
   FutureOr<void> _getListSungaiHandler(
       GetListSungai event, Emitter<SungaiState> emit) async {

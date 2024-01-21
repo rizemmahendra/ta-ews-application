@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:ta_ews_application/domain/entity/data_history_sensor.dart';
-import 'package:ta_ews_application/domain/entity/data_sensor_new.dart';
+import 'package:ta_ews_application/domain/entity/data_sensor.dart';
 
 class DataHistorySensorModel extends DataHistorySensor {
   const DataHistorySensorModel(
@@ -16,7 +16,7 @@ class DataHistorySensorModel extends DataHistorySensor {
       required super.valueRainNode2,
       required super.maxValueRain});
 
-  factory DataHistorySensorModel.fromListDataSensor(List<DataSensorNew> data) {
+  factory DataHistorySensorModel.fromListDataSensor(List<DataSensor> data) {
     List<String> key = data.map((value) => value.date!).toList();
     List<double> valueWaterLevelNode1 =
         data.map((e) => (e.node1['waterLevel'] as int).toDouble()).toList();

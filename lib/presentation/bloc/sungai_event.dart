@@ -15,8 +15,9 @@ class GetDataSungai extends SungaiBlocEvent {
   const GetDataSungai({String? idSungai})
       : _idSungai = idSungai ?? 'axBPVZsdXUAjFyWOlXnt';
 
-  // ignore: unused_field
   final String _idSungai;
+
+  String get idSungai => _idSungai;
 }
 
 class GetDataRealtimeSensor extends SungaiBlocEvent {
@@ -28,7 +29,7 @@ class GetDataRealtimeSensor extends SungaiBlocEvent {
 class UpdateDataRealtimeSensor extends SungaiBlocEvent {
   const UpdateDataRealtimeSensor({required this.data});
 
-  final DataSensorNew data;
+  final DataSensor data;
 }
 
 class GetDataHistorySensor extends SungaiBlocEvent {

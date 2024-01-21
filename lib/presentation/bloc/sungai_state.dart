@@ -44,7 +44,7 @@ class GettingDataRealtimeSensor extends SungaiState {
 class LoadedDataRealtimeSensor extends SungaiState {
   const LoadedDataRealtimeSensor({required this.dataSensor});
 
-  final DataSensorNew dataSensor;
+  final DataSensor dataSensor;
 
   @override
   List<Object> get props => [dataSensor];

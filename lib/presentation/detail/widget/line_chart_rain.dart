@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +21,7 @@ class LineChartRainWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SungaiBloc, SungaiState>(
       buildWhen: (previous, current) {
+        if (current is GettingDataHistorySensor) return true;
         if (current is LoadedDataHistorySensor) return true;
         return false;
       },
@@ -131,7 +134,7 @@ class LineChartRainWidget extends StatelessWidget {
                     color: Colors.red),
               ]));
         }
-        return const CircularProgressIndicator();
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
