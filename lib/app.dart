@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/core.dart';
+import 'package:ta_ews_application/data/services/notification.dart';
+import 'package:ta_ews_application/dependecy_injection.dart';
 import 'package:ta_ews_application/presentation/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/presentation/detail/view/detail_view.dart';
 import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
@@ -69,6 +71,9 @@ class _AppState extends State<App> {
                     if (prevStatusNode1 != statusNode1 &&
                             statusNode1 == "bahaya" ||
                         statusNode1 == "sangat bahaya") {
+                      sl<NotificationService>().showNotification(
+                          title: 'Kondisi Node 1 : $statusNode1',
+                          body: DateTime.now().toString());
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content:
                               Text('Kondisi Sungai : $statusNode1 di Node 1'),
@@ -77,6 +82,9 @@ class _AppState extends State<App> {
                     if (prevStatusNode2 != statusNode2 &&
                             statusNode2 == "bahaya" ||
                         statusNode2 == "sangat bahaya") {
+                      sl<NotificationService>().showNotification(
+                          title: 'Kondisi Node 2 : $statusNode2',
+                          body: DateTime.now().toString());
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content:
                               Text('Kondisi Sungai : $statusNode2 di Node 2'),

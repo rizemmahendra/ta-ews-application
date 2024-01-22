@@ -1,27 +1,31 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:ta_ews_application/app.dart';
 import 'package:ta_ews_application/core.dart';
+import 'package:ta_ews_application/data/services/notification.dart';
 import 'package:ta_ews_application/dependecy_injection.dart';
-import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 import 'package:ta_ews_application/firebase_options.dart';
+import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 
 void main() async {
   initInjection();
   WidgetsFlutterBinding.ensureInitialized();
+  sl<NotificationService>().initialize();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(Main());
+
+  runApp(const Main());
 }
 
 class Main extends StatelessWidget {
-  Main({super.key});
-
-  final sungaiBloc = sl<SungaiBloc>();
+  const Main({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sungaiBloc
+      create: (context) => sl<SungaiBloc>()
         ..add(const GetDataSungai(idSungai: 'axBPVZsdXUAjFyWOlXnt'))
         ..add(const GetDataHistorySensor('axBPVZsdXUAjFyWOlXnt', '2024-01-17')),
       child: MaterialApp(

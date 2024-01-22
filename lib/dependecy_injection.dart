@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:ta_ews_application/core.dart';
 import 'package:ta_ews_application/data/datasources/firestore.dart';
 import 'package:ta_ews_application/data/repository/sungai_repository_implementation.dart';
+import 'package:ta_ews_application/data/services/notification.dart';
 import 'package:ta_ews_application/domain/repository/sungai_repository.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_history.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_realtime_sensor.dart';
@@ -31,9 +32,12 @@ Future<void> initInjection() async {
     ..registerLazySingleton<SungaiRepository>(
         () => SungaiRepositoryImplementation(sl()))
 
-    //DataSource
+    // DataSource
     ..registerLazySingleton<RemoteDataSource>(
         () => FirestoreDataSource(instance: sl()))
+
+    // Service
+    ..registerLazySingleton(() => NotificationService())
 
     // Firebase Instance
     ..registerLazySingleton(() => FirebaseFirestore.instance);
