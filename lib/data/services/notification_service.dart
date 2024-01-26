@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -21,7 +20,7 @@ class NotificationService {
 
   int get id => _notificationId;
 
-  Future<void> initialize() async {
+  static Future<void> initialize() async {
     const androidInitialize =
         AndroidInitializationSettings('mipmap/ic_launcher');
     const iOsInitialize = DarwinInitializationSettings();
@@ -53,9 +52,6 @@ class NotificationService {
                 AndroidFlutterLocalNotificationsPlugin>()
             ?.createNotificationChannelGroup(notificationChannelGroup);
         log('Create/Update Notification Group Channel');
-        if (kDebugMode) {
-          print('Create/Update Notification Group Channel');
-        }
 
         await _flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<
@@ -70,9 +66,7 @@ class NotificationService {
                 ?.requestExactAlarmsPermission();
         if (requestExactAlarmsPermission =
             true && requestExactAlarmsPermission != null) {
-          if (kDebugMode) {
-            print("Exact Alarm Permission Access Granted");
-          }
+          log("Exact Alarm Permission Access Granted");
         }
         var requestNotificationsPermission =
             await _flutterLocalNotificationsPlugin
@@ -81,38 +75,37 @@ class NotificationService {
                 ?.requestNotificationsPermission();
         if (requestNotificationsPermission =
             true && requestNotificationsPermission != null) {
-          if (kDebugMode) {
-            print("Notification Permission Access Granted");
-          }
+          log("Notification Permission Access Granted");
         }
       }
     }
-    if (kDebugMode) {
-      print("Notification Service Successful Initialize");
-    }
+    log("Notification Service Successful Initialize");
   }
 
   static Future<void> showNotification(
       {String? title, String? body, String? payload}) async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
+    log('id notif : $_notificationId');
+    AndroidNotificationDetails androidNotificationDetails =
+        const AndroidNotificationDetails(
             _notificationChannelId, _notificationChannelName,
+            channelShowBadge: true,
             enableVibration: true,
             playSound: true,
             groupKey: _notificationChannelGroupId,
-            setAsGroupSummary: true,
             importance: Importance.max,
-            fullScreenIntent: true,
-            priority: Priority.max);
+            // fullScreenIntent: true,
+            priority: Priority.max,
+            styleInformation: BigTextStyleInformation(''));
 
     const DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(presentAlert: true, presentSound: true);
 
-    const notificationDetails = NotificationDetails(
+    NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: darwinNotificationDetails);
 
     await _flutterLocalNotificationsPlugin.show(
-        _notificationId++, title, body, notificationDetails,
+        _notificationId, title, body, notificationDetails,
         payload: payload);
+    _notificationId++;
   }
 }
