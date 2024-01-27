@@ -3,14 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:ta_ews_application/presentation/detail/widget/line_chart.dart';
 
-class DetailPage extends StatefulWidget {
+class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
 
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Center(

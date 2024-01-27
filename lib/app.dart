@@ -17,8 +17,8 @@ class _AppState extends State<App> {
   final List<Widget> pages = [
     Homepage(),
     const DetailPage(),
-    const CallCenterPage(),
-    const CallCenterPage()
+    CallCenterPage(),
+    const Placeholder()
   ];
 
   int _currentIndex = 0;
@@ -34,15 +34,15 @@ class _AppState extends State<App> {
       backgroundColor: Constant.grey,
       appBar: AppBar(
         elevation: 0,
-        title: Constant.appTitle,
+        title: const FittedBox(fit: BoxFit.fitWidth, child: Constant.appTitle),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            context.read<SungaiBloc>().add(const GetDataHistorySensor(
-                'axBPVZsdXUAjFyWOlXnt', '2024-01-17'));
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.menu),
+        //   onPressed: () {
+        //     context.read<SungaiBloc>().add(const GetDataHistorySensor(
+        //         'axBPVZsdXUAjFyWOlXnt', '2024-01-17'));
+        //   },
+        // ),
         bottom: PreferredSize(
             preferredSize: const Size.fromHeight(100),
             child: Container(
@@ -161,7 +161,6 @@ class _AppState extends State<App> {
                 ))),
       ),
       bottomNavigationBar: NavigationBar(
-          indicatorColor: Colors.white,
           selectedIndex: _currentIndex,
           onDestinationSelected: (value) {
             setState(() {

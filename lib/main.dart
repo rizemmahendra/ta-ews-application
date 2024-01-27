@@ -32,13 +32,18 @@ class Main extends StatelessWidget {
         ..add(const GetDataHistorySensor('axBPVZsdXUAjFyWOlXnt', '2024-01-17')),
       child: MaterialApp(
         theme: ThemeData(
+            textTheme: const TextTheme(
+                bodyLarge: TextStyle(color: Colors.white),
+                bodyMedium: TextStyle(color: Colors.white)),
             appBarTheme: AppBarTheme(
                 backgroundColor: Constant.orange,
                 elevation: 0,
                 shape: Border.all(width: 0, color: Constant.grey)),
             navigationBarTheme: const NavigationBarThemeData(
-              backgroundColor: Constant.orange,
-            )),
+                backgroundColor: Constant.orange,
+                indicatorColor: Colors.white,
+                labelTextStyle:
+                    MaterialStatePropertyAll(TextStyle(color: Colors.white)))),
         home: const App(),
       ),
     );

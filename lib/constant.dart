@@ -5,6 +5,9 @@ class Constant {
   static const Color grey = Color(0xFF545454);
   static const Text appTitle = Text(
     'Peringatan Dini Banjir Bandang',
-    style: TextStyle(fontSize: 20),
+    style: TextStyle(
+      // fontSize: 22.5,
+      color: Colors.white,
+    ),
   );
 }
