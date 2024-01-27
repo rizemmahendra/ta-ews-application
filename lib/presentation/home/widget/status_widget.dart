@@ -18,10 +18,13 @@ class StatusNodeWidget extends StatelessWidget {
             child: Column(
               children: [
                 const FittedBox(
-                  child: Text('Status Sungai'),
+                  child: Text(
+                    'Status Sungai',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 2,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,

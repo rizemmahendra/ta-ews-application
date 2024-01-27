@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,6 +43,11 @@ class SungaiBloc extends Bloc<SungaiBlocEvent, SungaiState> {
   final GetDataHistoryUseCase _dataHistoryUseCase;
   StreamSubscription<DocumentSnapshot<DataSensor>>? _streamSubscription;
 
+  String selectedDate = DateTime.now().toString().substring(0, 10);
+
+  // String _idSungai = '';
+  // set idSungai(String value) => _idSungai = value;
+
   FutureOr<void> _getListSungaiHandler(
       GetListSungai event, Emitter<SungaiState> emit) async {
     var result = await _listSungaiUseCase.exec();
@@ -80,8 +86,9 @@ class SungaiBloc extends Bloc<SungaiBlocEvent, SungaiState> {
   FutureOr<void> _getDataHistorySensor(
       GetDataHistorySensor event, Emitter<SungaiState> emit) async {
     emit(const GettingDataHistorySensor());
-    final result =
-        await _dataHistoryUseCase.exec(idSungai: event.id, tanggal: event.date);
+    log(selectedDate);
+    final result = await _dataHistoryUseCase.exec(
+        idSungai: event.id, tanggal: selectedDate);
     result.fold((l) => l, (r) {
       emit(LoadedDataHistorySensor(dataHistory: r));
     });

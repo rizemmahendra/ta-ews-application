@@ -28,8 +28,10 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DependecyInjection.sl<SungaiBloc>()
+        // ..idSungai = ''
         ..add(const GetDataSungai(idSungai: 'axBPVZsdXUAjFyWOlXnt'))
-        ..add(const GetDataHistorySensor('axBPVZsdXUAjFyWOlXnt', '2024-01-17')),
+        ..add(GetDataHistorySensor('axBPVZsdXUAjFyWOlXnt',
+            DateTime.now().toString().substring(0, 10))),
       child: MaterialApp(
         theme: ThemeData(
             textTheme: const TextTheme(
