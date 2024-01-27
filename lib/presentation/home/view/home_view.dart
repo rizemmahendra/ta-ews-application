@@ -5,6 +5,7 @@ class Homepage extends StatelessWidget {
   Homepage({super.key});
 
   final List<Widget> listData = [
+    const StatusNodeWidget(),
     const WaterCardWidget(),
     const TurbidityCardWidget(),
     const RainCardWidget()
