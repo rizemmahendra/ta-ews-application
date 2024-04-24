@@ -75,7 +75,9 @@ class WaterCardWidget extends StatelessWidget {
                                 child: dispalyData(
                                     title: 'Node 1',
                                     data: state is LoadedDataRealtimeSensor
-                                        ? state.dataSensor.node1['waterLevel']
+                                        ? double.parse(state
+                                            .dataSensor.node1['waterLevel']
+                                            .toString())
                                         : 0,
                                     satuan: 'CM',
                                     status: state is LoadedDataRealtimeSensor
@@ -86,7 +88,9 @@ class WaterCardWidget extends StatelessWidget {
                                 child: dispalyData(
                                     title: 'Node 2',
                                     data: state is LoadedDataRealtimeSensor
-                                        ? state.dataSensor.node2['waterLevel']
+                                        ? double.parse(state
+                                            .dataSensor.node2['waterLevel']
+                                            .toString())
                                         : 0,
                                     satuan: 'CM',
                                     status: state is LoadedDataRealtimeSensor
@@ -109,7 +113,7 @@ class WaterCardWidget extends StatelessWidget {
 
   Column dispalyData(
       {required String title,
-      required int data,
+      required double data,
       required String satuan,
       required String status}) {
     return Column(children: [

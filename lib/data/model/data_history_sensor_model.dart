@@ -18,26 +18,32 @@ class DataHistorySensorModel extends DataHistorySensor {
 
   factory DataHistorySensorModel.fromListDataSensor(List<DataSensor> data) {
     List<String> key = data.map((value) => value.date!).toList();
-    List<double> valueWaterLevelNode1 =
-        data.map((e) => (e.node1['waterLevel'] as int).toDouble()).toList();
-    List<double> valueWaterLevelNode2 =
-        data.map((e) => (e.node2['waterLevel'] as int).toDouble()).toList();
+    List<double> valueWaterLevelNode1 = data
+        .map((e) => double.parse(e.node1['waterLevel'].toString()))
+        .toList();
+    List<double> valueWaterLevelNode2 = data
+        .map((e) => double.parse(e.node2['waterLevel'].toString()))
+        .toList();
     int maxValueWaterLevel =
         valueWaterLevelNode1.reduce(max) > valueWaterLevelNode2.reduce(max)
             ? valueWaterLevelNode1.reduce(max).toInt()
             : valueWaterLevelNode2.reduce(max).toInt();
-    List<double> valueTurbidityNode1 =
-        data.map((e) => (e.node1['waterTurbidity'] as int).toDouble()).toList();
-    List<double> valueTurbidityNode2 =
-        data.map((e) => (e.node2['waterTurbidity'] as int).toDouble()).toList();
+    List<double> valueTurbidityNode1 = data
+        .map((e) => double.parse(e.node1['waterTurbidity'].toString()))
+        .toList();
+    List<double> valueTurbidityNode2 = data
+        .map((e) => double.parse(e.node2['waterTurbidity'].toString()))
+        .toList();
     int maxValueTurbidity =
         valueTurbidityNode1.reduce(max) > valueTurbidityNode2.reduce(max)
             ? valueWaterLevelNode1.reduce(max).toInt()
             : valueWaterLevelNode2.reduce(max).toInt();
-    List<double> valueRainNode1 =
-        data.map((e) => (e.node1['rainIntensity'] as int).toDouble()).toList();
-    List<double> valueRainNode2 =
-        data.map((e) => (e.node2['rainIntensity'] as int).toDouble()).toList();
+    List<double> valueRainNode1 = data
+        .map((e) => double.parse(e.node1['rainIntensity'].toString()))
+        .toList();
+    List<double> valueRainNode2 = data
+        .map((e) => double.parse(e.node2['rainIntensity'].toString()))
+        .toList();
     int maxValueRain = valueRainNode1.reduce(max) > valueRainNode2.reduce(max)
         ? valueRainNode1.reduce(max).toInt()
         : valueRainNode2.reduce(max).toInt();

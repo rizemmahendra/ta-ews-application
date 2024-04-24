@@ -20,7 +20,7 @@ class RainCardWidget extends StatelessWidget {
       fontWeight: FontWeight.w600);
 
   final TextStyle dataStyle = const TextStyle(
-      color: Colors.white, fontSize: 48, fontFamily: 'Berlin Sans FB');
+      color: Colors.white, fontSize: 40, fontFamily: 'Berlin Sans FB');
 
   final TextStyle dataUnitStyle = const TextStyle(
       color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600);
@@ -80,8 +80,9 @@ class RainCardWidget extends StatelessWidget {
                                 child: dispalyData(
                                     title: 'Node 1',
                                     data: state is LoadedDataRealtimeSensor
-                                        ? state
+                                        ? double.parse(state
                                             .dataSensor.node1['rainIntensity']
+                                            .toString())
                                         : 0,
                                     satuan: 'mm/hour',
                                     status: state is LoadedDataRealtimeSensor
@@ -92,8 +93,9 @@ class RainCardWidget extends StatelessWidget {
                                 child: dispalyData(
                                     title: 'Node 2',
                                     data: state is LoadedDataRealtimeSensor
-                                        ? state
+                                        ? double.parse(state
                                             .dataSensor.node2['rainIntensity']
+                                            .toString())
                                         : 0,
                                     satuan: 'mm/hour',
                                     status: state is LoadedDataRealtimeSensor
@@ -116,7 +118,7 @@ class RainCardWidget extends StatelessWidget {
 
   Column dispalyData(
       {required String title,
-      required int data,
+      required double data,
       required String satuan,
       required String status}) {
     return Column(children: [

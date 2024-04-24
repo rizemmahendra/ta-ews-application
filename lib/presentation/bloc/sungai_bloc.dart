@@ -89,7 +89,7 @@ class SungaiBloc extends Bloc<SungaiBlocEvent, SungaiState> {
     log(selectedDate);
     final result = await _dataHistoryUseCase.exec(
         idSungai: event.id, tanggal: selectedDate);
-    result.fold((l) => l, (r) {
+    result.fold((l) => log(l.toString()), (r) {
       emit(LoadedDataHistorySensor(dataHistory: r));
     });
   }
