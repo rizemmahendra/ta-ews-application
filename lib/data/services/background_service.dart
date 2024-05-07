@@ -30,8 +30,6 @@ class BackgroundService {
         iosConfiguration: iosConfiguration,
         androidConfiguration: androidConfiguration);
     log('Background Service is Running');
-
-    NotificationService.showNotification(title: 'Early Warning System');
     return;
   }
 
