@@ -7,79 +7,60 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:ta_ews_application/app.dart';
 import 'package:ta_ews_application/core.dart';
+import 'package:ta_ews_application/data/services/notification_service.dart';
 import 'package:ta_ews_application/dependecy_injection.dart';
 import 'package:ta_ews_application/firebase_options.dart';
 import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 
-// import 'data/services/background_service.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-
   log("Handling a background message: ${message.messageId}");
-  log('title : ${message.notification?.title}');
-  log('title : ${message.notification?.body}');
+
+  if (message.data.isNotEmpty) {
+    String? title = message.data["title"];
+    String? body = message.data["body"];
+    String? channelId = message.data["channelId"];
+
+    NotificationService.showNotification(
+        channelId: channelId, title: title, body: body);
+  }
+}
+
+void _firebaseMessagingForegroundHandler(RemoteMessage message) async {
+  await NotificationService.initialize();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  log('Got a message whilst in the foreground!');
+  log('Message data: ${message.data}');
+  log('channel id : ${message.notification?.android?.channelId}');
+
+  if (message.notification?.android != null) {
+    String? title = '${message.notification?.title} Local Notification';
+    String? body = message.notification?.body;
+    String? channelId = message.notification?.android?.channelId;
+
+    NotificationService.showNotification(
+        channelId: channelId, title: title, body: body);
+  }
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await DependecyInjection.initialize();
+  await DependecyInjection.initialize();
+  await NotificationService.initialize();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  await FirebaseMessaging.instance.getInitialMessage();
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   await FirebaseMessaging.instance
-      .subscribeToTopic('ta_ews')
-      .then((event) => log('Berhasil'))
+      .subscribeToTopic('ta_ews_rizemmahendra')
+      .then((event) => log('Subcribe to channel ta_ews_rizemmahendra Berhasil'))
       .onError((error, stackTrace) => log(error.toString()));
-  log("FCMToken $fcmToken");
 
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    log('Got a message whilst in the foreground!');
-    log('Message data: ${message.data}');
-    log('channel id : ${message.notification?.android?.channelId}');
-
-    if (message.notification != null) {
-      log('Message also contained a notification: ${message.notification}');
-      log('title : ${message.notification?.title}');
-      log('title : ${message.notification?.body}');
-    }
-  });
+  FirebaseMessaging.onMessage.listen(_firebaseMessagingForegroundHandler);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await FirebaseMessaging.instance
-      .getNotificationSettings()
-      .then((value) => log(value.toString()));
 
-  OneSignal.initialize("d1a5fcad-c202-4770-b95b-13deb1eaadc2");
-  OneSignal.Notifications.requestPermission(true);
-
-  // await BackgroundService.initialize();
-  runApp(MyWidget(
-    data: fcmToken!,
-  ));
-}
-
-// ignore: must_be_immutable
-class MyWidget extends StatelessWidget {
-  MyWidget({
-    super.key,
-    this.data = "",
-  });
-
-  String data;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text(data),
-        ),
-      ),
-    );
-  }
+  runApp(const Main());
 }
 
 class Main extends StatelessWidget {

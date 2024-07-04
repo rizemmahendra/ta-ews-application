@@ -67,6 +67,7 @@ class BackgroundService {
             statusNode1 == "sangat bahaya") {
           log('Show Notif node 1');
           await NotificationService.showNotification(
+              channelId: 1,
               title: 'Status Sungai di Node 1 : $statusNode1',
               body:
                   'Ketinggian air\t: ${data.node1['waterLevel']} CM\nKekeruhan Air\t: ${data.node1['waterTurbidity']} NTU\nIntensitas Hujan\t: ${data.node1['rainIntensity']} mm/hour');
@@ -75,6 +76,7 @@ class BackgroundService {
             statusNode2 == "sangat bahaya") {
           log('Show notif node 2');
           await NotificationService.showNotification(
+              channelId: 1,
               title: 'Status Sungai di Node 2 : $statusNode2',
               body:
                   'Ketinggian air\t: ${data.node2['waterLevel']} CM\nKekeruhan Air\t: ${data.node2['waterTurbidity']} NTU\nIntensitas Hujan\t: ${data.node2['rainIntensity']} mm/hour');
@@ -85,7 +87,8 @@ class BackgroundService {
         prevStatusNode2 = statusNode2;
       });
     } catch (e) {
-      NotificationService.showNotification(title: 'ERROR', body: e.toString());
+      NotificationService.showNotification(
+          channelId: 1, title: 'ERROR', body: e.toString());
     }
   }
 }

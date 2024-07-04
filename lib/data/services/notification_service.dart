@@ -8,13 +8,26 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  static const String _notificationChannelId = 'alert_notification';
-  static const String _notificationChannelName = 'Alert Notification';
-  static const String _notificationChannelDescription =
-      'Notification Channel for Alert';
+  static const List<Map<String, dynamic>> _notificationChannels = [
+    {
+      "id": "alert_notification",
+      "name": "Alert Notification",
+      "description": 'Notification Channel for Alert',
+      "groupId": 'early_warning_system',
+      "sound": "alarm"
+    },
+    {
+      "id": "danger_notification",
+      "name": "Danger Notification",
+      "description": 'Notification Channel for Alert',
+      "groupId": 'early_warning_system',
+      "sound": "alarm_danger"
+    },
+  ];
 
-  static const String _notificationChannelGroupId = 'early_warning_system';
-  static const String _notificationChannelGroupName = 'Early Warning System';
+  static const List<Map<String, dynamic>> _notificationGroups = [
+    {"id": "early_warning_system", "name": "Early Warning System"},
+  ];
 
   static int _notificationId = 0;
 
@@ -29,73 +42,40 @@ class NotificationService {
         InitializationSettings(android: androidInitialize, iOS: iOsInitialize);
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-    const AndroidNotificationChannelGroup notificationChannelGroup =
-        AndroidNotificationChannelGroup(
-            _notificationChannelGroupId, _notificationChannelGroupName);
-
-    const AndroidNotificationChannel notificationChannel =
-        AndroidNotificationChannel(
-            _notificationChannelId, _notificationChannelName,
-            description: _notificationChannelDescription,
-            enableVibration: true,
-            groupId: _notificationChannelGroupId,
-            playSound: true,
-            showBadge: true,
-            enableLights: true,
-            importance: Importance.max);
-
-    var androidInfo = await DeviceInfoPlugin().androidInfo;
     if (Platform.isAndroid) {
-      if (androidInfo.version.sdkInt >= 26 /* Android 8.0 or newer */) {
-        await _flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
-            ?.createNotificationChannelGroup(notificationChannelGroup);
-        log('Create/Update Notification Group Channel');
+      var androidInfo = await _getAndroidInfo();
 
-        await _flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
-            ?.createNotificationChannel(notificationChannel);
+      if (androidInfo.version.sdkInt >= 26 /* Android 8.0 or newer */) {
+        await _createChannelGroup(_notificationGroups);
+        await _createChannelNotification(_notificationChannels);
       }
       if (androidInfo.version.sdkInt >= 33 /* Android 13.0 */) {
-        var requestExactAlarmsPermission =
-            await _flutterLocalNotificationsPlugin
-                .resolvePlatformSpecificImplementation<
-                    AndroidFlutterLocalNotificationsPlugin>()
-                ?.requestExactAlarmsPermission();
-        if (requestExactAlarmsPermission =
-            true && requestExactAlarmsPermission != null) {
-          log("Exact Alarm Permission Access Granted");
-        }
-        var requestNotificationsPermission =
-            await _flutterLocalNotificationsPlugin
-                .resolvePlatformSpecificImplementation<
-                    AndroidFlutterLocalNotificationsPlugin>()
-                ?.requestNotificationsPermission();
-        if (requestNotificationsPermission =
-            true && requestNotificationsPermission != null) {
-          log("Notification Permission Access Granted");
-        }
+        await _requestNotificationPermission();
       }
     }
     log("Notification Service Successful Initialize");
   }
 
+  /// Show Notification
+  /// @Param channelId
   static Future<void> showNotification(
-      {String? title, String? body, String? payload}) async {
-    log('id notif : $_notificationId');
+      {required dynamic channelId,
+      String? title,
+      String? body,
+      String? payload}) async {
+    Map<String, dynamic> notification = _notificationChannels
+        .firstWhere((channel) => channel["id"] == channelId);
+
     AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails(
-            _notificationChannelId, _notificationChannelName,
+        AndroidNotificationDetails(notification["id"], notification["name"],
             channelShowBadge: true,
             enableVibration: true,
             playSound: true,
-            groupKey: _notificationChannelGroupId,
+            groupKey: notification["groupId"],
             importance: Importance.max,
             // fullScreenIntent: true,
             priority: Priority.max,
-            styleInformation: BigTextStyleInformation(''));
+            styleInformation: const BigTextStyleInformation(''));
 
     const DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(presentAlert: true, presentSound: true);
@@ -107,5 +87,66 @@ class NotificationService {
         _notificationId, title, body, notificationDetails,
         payload: payload);
     _notificationId++;
+  }
+
+  static Future<void> _createChannelNotification(List channels) async {
+    for (var channel in channels) {
+      AndroidNotificationChannel notificationChannel =
+          AndroidNotificationChannel(channel["id"], channel["name"],
+              description: channel["description"],
+              enableVibration: true,
+              groupId: channel["groupId"],
+              playSound: true,
+              sound: RawResourceAndroidNotificationSound(channel["sound"]),
+              showBadge: true,
+              enableLights: true,
+              importance: Importance.max);
+
+      await _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(notificationChannel);
+    }
+  }
+
+  static Future<void> _createChannelGroup(
+      List<Map<String, dynamic>> channelGroups) async {
+    for (var group in channelGroups) {
+      AndroidNotificationChannelGroup notificationChannelGroup =
+          AndroidNotificationChannelGroup(group["id"], group["name"]);
+
+      await _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannelGroup(notificationChannelGroup);
+      log('Create/Update Notification Group Channel');
+    }
+  }
+
+  static Future<AndroidDeviceInfo> _getAndroidInfo() async {
+    AndroidDeviceInfo? deviceInfo;
+    deviceInfo ??= await DeviceInfoPlugin().androidInfo;
+    return deviceInfo;
+  }
+
+  static Future<void> _requestNotificationPermission() async {
+    var requestExactAlarmsPermission = await _flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestExactAlarmsPermission();
+
+    var requestNotificationsPermission = await _flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+
+    if (requestExactAlarmsPermission =
+        true && requestExactAlarmsPermission != null) {
+      log("Exact Alarm Permission Access Granted");
+    }
+    if (requestNotificationsPermission =
+        true && requestNotificationsPermission != null) {
+      log("Notification Permission Access Granted");
+    }
   }
 }
