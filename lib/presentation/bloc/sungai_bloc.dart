@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ta_ews_application/domain/entity/data_history_sensor.dart';
+import 'package:ta_ews_application/domain/entity/data_history.dart';
 import 'package:ta_ews_application/domain/entity/data_sensor.dart';
 import 'package:ta_ews_application/domain/entity/sungai.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_history.dart';
@@ -86,10 +86,10 @@ class SungaiBloc extends Bloc<SungaiBlocEvent, SungaiState> {
   FutureOr<void> _getDataHistorySensor(
       GetDataHistorySensor event, Emitter<SungaiState> emit) async {
     emit(const GettingDataHistorySensor());
-    log(selectedDate);
+    // log(selectedDate);
     final result = await _dataHistoryUseCase.exec(
         idSungai: event.id, tanggal: selectedDate);
-    result.fold((l) => log(l.toString()), (r) {
+    result.fold((l) => log(l.toString(), name: "EVENT GET HISTORY"), (r) {
       emit(LoadedDataHistorySensor(dataHistory: r));
     });
   }

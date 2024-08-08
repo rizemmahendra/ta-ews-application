@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ta_ews_application/data/model/data_history_model.dart';
 import 'package:ta_ews_application/data/model/data_sensor_model.dart';
 import 'package:ta_ews_application/data/model/sungai_model.dart';
+import 'package:ta_ews_application/domain/entity/data_history.dart';
 
 class FirestoreDataSource implements RemoteDataSource {
   FirestoreDataSource({required FirebaseFirestore instance})
@@ -56,19 +58,21 @@ class FirestoreDataSource implements RemoteDataSource {
   }
 
   @override
-  Future<List<DataSensorModel>> getHistory(
+  Future<List<DataHistory>> getHistory(
       {required String idSungai, required String tanggal}) async {
     final docSnap = await ref
         .doc(idSungai)
         .collection('data_sensor')
         .doc('history')
-        .collection(tanggal)
-        .withConverter(
-          fromFirestore: DataSensorModel.fromFirestore,
+        .collection("list")
+        .withConverter<DataHistoryModel>(
+          fromFirestore: DataHistoryModel.fromFirestore,
           toFirestore: (value, options) => value.toFirestore(),
         )
+        .orderBy("datetime", descending: true)
         .get();
-    List<DataSensorModel> history = [];
+
+    List<DataHistory> history = [];
     if (docSnap.docs.isEmpty) return history;
     for (var doc in docSnap.docs) {
       history.add(doc.data());
@@ -91,6 +95,6 @@ abstract class RemoteDataSource extends Equatable {
   Future<SungaiModel> getDataSungai({required String idSungai});
   Stream<DocumentSnapshot<DataSensorModel>> getDataRealtimeSensor(
       {required String idSungai});
-  Future<List<DataSensorModel>> getHistory(
+  Future<List<DataHistory>> getHistory(
       {required String idSungai, required String tanggal});
 }

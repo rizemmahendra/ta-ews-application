@@ -20,7 +20,7 @@ class WaterCardWidget extends StatelessWidget {
       fontWeight: FontWeight.w600);
 
   final TextStyle dataStyle = const TextStyle(
-      color: Colors.white, fontSize: 48, fontFamily: 'Berlin Sans FB');
+      color: Colors.white, fontSize: 20, fontFamily: 'Berlin Sans FB');
 
   final TextStyle dataUnitStyle = const TextStyle(
       color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600);

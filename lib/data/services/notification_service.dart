@@ -14,7 +14,7 @@ class NotificationService {
       "name": "Alert Notification",
       "description": 'Notification Channel for Alert',
       "groupId": 'early_warning_system',
-      "sound": "alarm"
+      "sound": "alarm_alert"
     },
     {
       "id": "danger_notification",
