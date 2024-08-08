@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_ews_application/core.dart';
+import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
+import 'package:ta_ews_application/presentation/about/view/about_view.dart';
 import 'package:ta_ews_application/presentation/call_center/view/call_center_view.dart';
 import 'package:ta_ews_application/presentation/detail/view/detail_view.dart';
-import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 import 'package:ta_ews_application/presentation/home/view/home_view.dart';
 
 class App extends StatefulWidget {
@@ -18,7 +19,7 @@ class _AppState extends State<App> {
     Homepage(),
     const DetailPage(),
     CallCenterPage(),
-    const Placeholder()
+    const AboutPage()
   ];
 
   int _currentIndex = 0;
@@ -175,7 +176,7 @@ class _AppState extends State<App> {
             NavigationDestination(
                 icon: Icon(Icons.list),
                 selectedIcon: Icon(Icons.list_alt_outlined),
-                label: 'Detail'),
+                label: 'History'),
             NavigationDestination(
                 icon: Icon(Icons.call_outlined),
                 selectedIcon: Icon(Icons.call),

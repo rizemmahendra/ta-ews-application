@@ -74,7 +74,8 @@ class RainCardWidget extends StatelessWidget {
                             Expanded(
                                 child: SizedBox(
                               height: 100,
-                              child: Image.asset('assets/images/water.png'),
+                              child:
+                                  Image.asset('assets/images/Rain cloud.png'),
                             )),
                             Expanded(
                                 child: dispalyData(
