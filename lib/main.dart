@@ -27,17 +27,12 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void _firebaseMessagingForegroundHandler(RemoteMessage message) async {
-  await NotificationService.initialize();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  log("Handling a foreground message: ${message.messageId}");
 
-  log('Got a message whilst in the foreground!');
-  log('Message data: ${message.data}');
-  log('channel id : ${message.notification?.android?.channelId}');
-
-  if (message.notification?.android != null) {
-    String? title = '${message.notification?.title} Local Notification';
-    String? body = message.notification?.body;
-    String? channelId = message.notification?.android?.channelId;
+  if (message.data.isNotEmpty) {
+    String? title = message.data["title"];
+    String? body = message.data["body"];
+    String? channelId = message.data["channelId"];
 
     NotificationService.showNotification(
         channelId: channelId, title: title, body: body);
