@@ -49,6 +49,7 @@ class RainCardWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
                     width: double.infinity,
@@ -70,6 +71,7 @@ class RainCardWidget extends StatelessWidget {
                       },
                       builder: (context, state) {
                         return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
                                 child: SizedBox(
@@ -131,13 +133,16 @@ class RainCardWidget extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-      RichText(
-          text: TextSpan(
-              text: data.toString(),
-              style: dataStyle,
-              children: <TextSpan>[
-            TextSpan(text: satuan, style: dataUnitStyle)
-          ])),
+      FittedBox(
+        fit: BoxFit.scaleDown,
+        child: RichText(
+            text: TextSpan(
+                text: data.toStringAsFixed(2),
+                style: dataStyle,
+                children: <TextSpan>[
+              TextSpan(text: satuan, style: dataUnitStyle)
+            ])),
+      ),
       Text(
         'status',
         style: TextStyle(

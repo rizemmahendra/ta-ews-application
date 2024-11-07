@@ -20,10 +20,10 @@ class WaterCardWidget extends StatelessWidget {
       fontWeight: FontWeight.w600);
 
   final TextStyle dataStyle = const TextStyle(
-      color: Colors.white, fontSize: 20, fontFamily: 'Berlin Sans FB');
+      color: Colors.white, fontSize: 32, fontFamily: 'Berlin Sans FB');
 
   final TextStyle dataUnitStyle = const TextStyle(
-      color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600);
+      color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600);
 
   final String title = "Ketinggian Air";
 
@@ -49,6 +49,7 @@ class WaterCardWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
                     width: double.infinity,
@@ -68,6 +69,7 @@ class WaterCardWidget extends StatelessWidget {
                       },
                       builder: (context, state) {
                         return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
                                 child: Image.asset('assets/images/water.png')),
@@ -125,13 +127,16 @@ class WaterCardWidget extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-      RichText(
-          text: TextSpan(
-              text: data.toString(),
-              style: dataStyle,
-              children: <TextSpan>[
-            TextSpan(text: satuan, style: dataUnitStyle)
-          ])),
+      FittedBox(
+        fit: BoxFit.scaleDown,
+        child: RichText(
+            text: TextSpan(
+                text: data.toStringAsFixed(2),
+                style: dataStyle,
+                children: <TextSpan>[
+              TextSpan(text: satuan, style: dataUnitStyle)
+            ])),
+      ),
       Text(
         'status',
         style: TextStyle(
