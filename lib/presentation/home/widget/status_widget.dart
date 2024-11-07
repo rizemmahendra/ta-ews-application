@@ -49,11 +49,11 @@ class StatusNodeWidget extends StatelessWidget {
                                   width: 25,
                                   height: 25,
                                   decoration: BoxDecoration(
-                                      color: node1 == 'Waspada'
+                                      color: node1 == 'Danger'
                                           ? Colors.red
-                                          : node1 == 'Siaga'
+                                          : node1 == 'Alert'
                                               ? Colors.amber
-                                              : node1 == 'Aman'
+                                              : node1 == 'Safe'
                                                   ? Colors.green
                                                   : Colors.grey,
                                       borderRadius: BorderRadius.circular(25)),
@@ -74,11 +74,11 @@ class StatusNodeWidget extends StatelessWidget {
                                   width: 25,
                                   height: 25,
                                   decoration: BoxDecoration(
-                                      color: node2 == 'Waspada'
+                                      color: node2 == 'Danger'
                                           ? Colors.red
-                                          : node2 == 'Siaga'
+                                          : node2 == 'Alert'
                                               ? Colors.amber
-                                              : node2 == 'aman'
+                                              : node2 == 'Safe'
                                                   ? Colors.green
                                                   : Colors.grey,
                                       borderRadius: BorderRadius.circular(25)),

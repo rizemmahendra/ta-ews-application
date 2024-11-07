@@ -15,14 +15,15 @@ class HistoryContainer extends StatelessWidget {
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                  color: data.levelDanger == "W" ? Colors.red : Colors.amber,
+                  color:
+                      data.levelDanger == "Danger" ? Colors.red : Colors.amber,
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10))),
               child: Center(
                   child: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Text(data.levelDanger == "W" ? "Waspada" : "Siaga",
+                child: Text(data.levelDanger,
                     style: const TextStyle(fontSize: 20)),
               )),
             )),
@@ -36,7 +37,8 @@ class HistoryContainer extends StatelessWidget {
                       topRight: Radius.circular(10),
                       bottomRight: Radius.circular(10))),
               child: Column(children: [
-                Text("Node ${data.node}"),
+                Text(
+                    "Node ${data.node != "Null" ? data.node.substring(data.node.length - 1) : "Null"}"),
                 Text(data.datetime),
                 const SizedBox(
                   height: 10,
@@ -52,15 +54,18 @@ class HistoryContainer extends StatelessWidget {
                             children: [
                               Image.asset(
                                 'assets/images/water.png',
-                                width: 20,
+                                width: 16,
                               ),
                               Text(
-                                "${data.valueWaterLevel} CM",
-                                style: const TextStyle(fontSize: 20),
+                                "${data.valueWaterLevel.toStringAsFixed(2)} CM",
+                                style: const TextStyle(fontSize: 16),
                               )
                             ],
                           ),
                         )),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Expanded(
                         flex: 1,
                         child: Center(
@@ -70,14 +75,18 @@ class HistoryContainer extends StatelessWidget {
                               Image.asset(
                                 'assets/images/Vector.png',
                                 width: 15,
+                                fit: BoxFit.contain,
                               ),
                               Text(
-                                "${data.valueWaterTurbidity} NTU",
-                                style: const TextStyle(fontSize: 20),
+                                "${data.valueWaterTurbidity.toStringAsFixed(2)} NTU",
+                                style: const TextStyle(fontSize: 16),
                               )
                             ],
                           ),
                         )),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Expanded(
                         flex: 1,
                         child: Center(
@@ -86,11 +95,11 @@ class HistoryContainer extends StatelessWidget {
                             children: [
                               Image.asset(
                                 'assets/images/Rain cloud.png',
-                                width: 20,
+                                width: 16,
                               ),
                               Text(
-                                "${data.valueRainIntensity} mm",
-                                style: const TextStyle(fontSize: 20),
+                                "${data.valueRainIntensity.toStringAsFixed(2)} mm",
+                                style: const TextStyle(fontSize: 16),
                               )
                             ],
                           ),
