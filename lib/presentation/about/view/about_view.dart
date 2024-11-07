@@ -8,12 +8,12 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300,
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.all(20),
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(10)),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               "Aplikasi Peringatan Dini Banjir Bandang",
@@ -50,9 +50,9 @@ class AboutPage extends StatelessWidget {
                   Text("Rizem Mahendra")
                 ]),
                 TableRow(children: [
-                  Text("Android Developer"),
+                  Text("Logo Designer"),
                   Center(child: Text(":")),
-                  Text("Rizem Mahendra")
+                  Text("M. Jihad Yuyan")
                 ]),
               ],
             )
