@@ -9,6 +9,7 @@ import 'package:ta_ews_application/domain/repository/sungai_repository.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_history.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_realtime_sensor.dart';
 import 'package:ta_ews_application/domain/usecase/get_data_sungai.dart';
+import 'package:ta_ews_application/domain/usecase/get_list_history.dart';
 import 'package:ta_ews_application/domain/usecase/get_list_sungai.dart';
 import 'package:ta_ews_application/presentation/bloc/sungai_bloc.dart';
 
@@ -24,6 +25,7 @@ Future<void> initInjection() async {
           listSungaiUseCase: sl(),
           dataSungaiUseCase: sl(),
           dataRealtimeSensorUseCase: sl(),
+          listHistoryUseCase: sl(),
           dataHistoryUseCase: sl()));
 
   // Usecase
@@ -61,6 +63,7 @@ class DependecyInjection {
             listSungaiUseCase: sl(),
             dataSungaiUseCase: sl(),
             dataRealtimeSensorUseCase: sl(),
+            listHistoryUseCase: sl(),
             dataHistoryUseCase: sl()));
 
     // Usecase
@@ -70,6 +73,7 @@ class DependecyInjection {
       ..registerLazySingleton<GetDataRealtimeSensorUseCase>(
           () => GetDataRealtimeSensorUseCase(sl()))
       ..registerLazySingleton(() => GetDataHistoryUseCase(sl()))
+      ..registerLazySingleton(() => GetListHistoryUseCase(sl()))
 
       // Repository
       ..registerLazySingleton<SungaiRepository>(

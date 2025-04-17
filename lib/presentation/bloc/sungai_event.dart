@@ -38,3 +38,15 @@ class GetDataHistorySensor extends SungaiBlocEvent {
   final String id;
   final String date;
 }
+
+class UpdateDataHistorySensor extends SungaiBlocEvent {
+  const UpdateDataHistorySensor({required this.data});
+
+  final List<DataHistory> data;
+}
+
+class GetListHistorySensor extends SungaiBlocEvent {
+  const GetListHistorySensor(this.id, this.date);
+  final String id;
+  final String date;
+}

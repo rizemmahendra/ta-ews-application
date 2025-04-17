@@ -78,7 +78,7 @@ class HistoryContainer extends StatelessWidget {
                                 fit: BoxFit.contain,
                               ),
                               Text(
-                                "${data.valueWaterTurbidity.toStringAsFixed(2)} NTU",
+                                "${data.valueWaterTurbidity.toStringAsFixed(2)} ADC",
                                 style: const TextStyle(fontSize: 16),
                               )
                             ],

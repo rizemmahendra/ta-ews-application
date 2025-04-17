@@ -11,4 +11,5 @@ abstract class SungaiRepository {
       {required String idSungai});
   Future<Either<Exception, List<DataHistory>>> getHistory(
       {required String idSungai, required String tanggal});
+  Stream<QuerySnapshot<DataHistory>> getListHistory({required String idSungai});
 }

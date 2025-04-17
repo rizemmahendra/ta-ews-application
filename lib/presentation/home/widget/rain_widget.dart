@@ -87,7 +87,7 @@ class RainCardWidget extends StatelessWidget {
                                             .dataSensor.node1['rainIntensity']
                                             .toString())
                                         : 0,
-                                    satuan: 'mm/hour',
+                                    satuan: 'mm/mnt',
                                     status: state is LoadedDataRealtimeSensor
                                         ? state.dataSensor
                                             .node1['rainIntensityStatus']
@@ -100,7 +100,7 @@ class RainCardWidget extends StatelessWidget {
                                             .dataSensor.node2['rainIntensity']
                                             .toString())
                                         : 0,
-                                    satuan: 'mm/hour',
+                                    satuan: 'mm/mnt',
                                     status: state is LoadedDataRealtimeSensor
                                         ? state.dataSensor
                                             .node2['rainIntensityStatus']

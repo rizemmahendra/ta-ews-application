@@ -86,6 +86,21 @@ class FirestoreDataSource implements RemoteDataSource {
 
   @override
   bool? get stringify => false;
+
+  @override
+  Stream<QuerySnapshot<DataHistoryModel>> getListHistory(
+      {required String idSungai}) {
+    return ref
+        .doc(idSungai)
+        .collection('data_sensor')
+        .doc('history')
+        .collection('list')
+        .withConverter(
+            fromFirestore: DataHistoryModel.fromFirestore,
+            toFirestore: (value, options) => value.toFirestore())
+        .orderBy("datetime", descending: true)
+        .snapshots();
+  }
 }
 
 abstract class RemoteDataSource extends Equatable {
@@ -97,4 +112,6 @@ abstract class RemoteDataSource extends Equatable {
       {required String idSungai});
   Future<List<DataHistory>> getHistory(
       {required String idSungai, required String tanggal});
+  Stream<QuerySnapshot<DataHistoryModel>> getListHistory(
+      {required String idSungai});
 }

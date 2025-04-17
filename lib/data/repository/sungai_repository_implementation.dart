@@ -50,4 +50,10 @@ class SungaiRepositoryImplementation implements SungaiRepository {
       return Left(Exception([e, stacktrace]));
     }
   }
+
+  @override
+  Stream<QuerySnapshot<DataHistory>> getListHistory(
+      {required String idSungai}) {
+    return _dataSource.getListHistory(idSungai: idSungai);
+  }
 }

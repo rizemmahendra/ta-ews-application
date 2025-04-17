@@ -86,7 +86,7 @@ class TurbidityCardWidget extends StatelessWidget {
                                             .dataSensor.node1['waterTurbidity']
                                             .toString())
                                         : 0,
-                                    satuan: 'NTU',
+                                    satuan: 'ADC',
                                     status: state is LoadedDataRealtimeSensor
                                         ? state.dataSensor
                                             .node1['waterTurbidityStatus']
@@ -99,7 +99,7 @@ class TurbidityCardWidget extends StatelessWidget {
                                             .dataSensor.node2['waterTurbidity']
                                             .toString())
                                         : 0,
-                                    satuan: 'NTU',
+                                    satuan: 'ADC',
                                     status: state is LoadedDataRealtimeSensor
                                         ? state.dataSensor
                                             .node2['waterTurbidityStatus']
